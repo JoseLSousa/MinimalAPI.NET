@@ -1,5 +1,8 @@
+using MinimalAPI;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddServiceDescriptors(builder.Configuration);
 // Add services to the container.
 
 var app = builder.Build();
