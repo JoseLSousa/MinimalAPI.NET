@@ -1,10 +1,9 @@
-﻿namespace MinimalAPI.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace MinimalAPI.Entities
 {
-    public sealed class User
+    public sealed class User : IdentityUser
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = default!;
-        public string Email { get; set; } = default!;
-        public string PasswordHash { get; set; } = default!;
     }
 }
