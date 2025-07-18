@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using MinimalAPI;
+using MinimalAPI.DTOs;
+using MinimalAPI.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,5 +14,16 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.Run();
+app.MapPost("/api/auth/register", async (UserRepository repository, [FromBody] RegisterUserDto newUser) =>
+{
+    await repository.RegisterAsync(newUser);
+    return Results.Created();
+});
 
+app.MapPost("/api/auth/login", async (UserRepository repository, [FromBody] LoginUserDto user) =>
+{
+    var token = await repository.LoginAsync(user);
+    return Results.Ok(new { Token = token });
+});
+
+app.Run();
